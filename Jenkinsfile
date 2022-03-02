@@ -10,7 +10,7 @@ pipeline {
                 export PATH="$PATH:$MAVEN_HOME/bin"
                 mvn -version
                 echo "building"
-                mvn compilem
+                mvn compile
                 '''
             }
         }
