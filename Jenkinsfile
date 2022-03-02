@@ -1,7 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 
-export MAVEN_HOME=/usr/local/Cellar/maven/3.8.4/libexec
-export PATH=$PATH:$MAVEN_HOME/bin
+export MAVEN_HOME="/usr/local/Cellar/maven/3.8.4/libexec"
+export PATH="$PATH:$MAVEN_HOME/bin"
 
 pipeline {
     agent any
