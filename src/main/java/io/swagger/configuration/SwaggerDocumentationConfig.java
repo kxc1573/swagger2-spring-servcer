@@ -1,14 +1,21 @@
 package io.swagger.configuration;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-02-24T08:35:55.975Z")
 
@@ -29,9 +36,27 @@ public class SwaggerDocumentationConfig {
 
     @Bean
     public Docket customImplementation(){
+        ParameterBuilder aParameterBuilder = new ParameterBuilder();
+        aParameterBuilder
+                .parameterType("header")
+                .name("ApiToken")
+                .description("")
+                .modelRef(new ModelRef("string"))
+                .required(false).build();
+        List<Parameter> parameters = new ArrayList<Parameter>();
+        parameters.add(aParameterBuilder.build());
+        ParameterBuilder bParameterBuilder = new ParameterBuilder();
+        bParameterBuilder
+                .parameterType("header")
+                .name("Authorization")
+                .defaultValue("Bearer ")
+                .description("The value should be in format of 'Bearer ${access_token}' ")
+                .modelRef(new ModelRef("string"))
+                .required(false).build();
+        parameters.add(bParameterBuilder.build());
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("io.swagger.api"))
+                    .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                     .build()
                 .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
