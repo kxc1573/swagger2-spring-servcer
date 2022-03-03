@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh '''
                 echo $M2_HOME
-                PATH = $PATH：$M2_HOME / bin
+                PATH=$PATH:$M2_HOME/bin
                 java -version
                 mvn -version
                 echo "building"
